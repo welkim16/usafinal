@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from  .models import UsJobs, JobDetails,Salary, Cities, Images
+from  .models import UsJobs, JobDetails,Salary, Cities, Images,User
     # ,Type
 
 
@@ -44,3 +44,17 @@ class UsJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsJobs
         fields = ['id', 'Title', 'Job_link', 'campany','Date_posted', 'cities', 'job_salary','images', 'job_details']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('name','email','password')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    # def create(self, validated_data):
+    #     user = User.objects.create_user(**validated_data)
+    #     return user
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields='__all__'
